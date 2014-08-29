@@ -38,20 +38,20 @@ Custom JSON to configure (stack settings - Custom JSON):
 
 ```json
 {
-  "application_name":"app",
-  "setup" : {
-    "user": "ubuntu",
-    "group": "ubuntu",
-    "directory_mode": "0755"
-    "base_path": "/var/www",
-    "venv_path": "var/.env",
-  },
-  "deploy": {
-    "requirements_path": "requirements.txt"
-    "requirements": [
-        "package_name==1.0",
-    ]
-  }
+    "application_name": "app",
+    "setup": {
+        "user": "ubuntu",
+        "group": "ubuntu",
+        "directory_mode": "0755",
+        "base_path": "/var/www",
+        "venv_path": "var/.env"
+    },
+    "deploy": {
+        "requirements_path": "requirements.txt",
+        "requirements": [
+            "package_name==1.0"
+        ]
+    }
 }
 ```
 

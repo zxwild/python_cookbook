@@ -7,7 +7,7 @@ Requirements
 Cookbooks from Berkshelf:
 
 #### packages
-- `python` - python_cookbook needs python from bershelf
+- `python` - python_cookbook needs python from berkshelf
 
 Attributes
 ----------

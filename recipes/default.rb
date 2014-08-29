@@ -19,16 +19,17 @@ full_venv_path = File.join(base_path, application_name, venv_path)
 
 group group do
   action :create
+  not_if 'getent group ' + group
 end
 
-user user do
+user user  do
   supports :manage_home => true
-  # uid user
   gid group
   home "/home/" + user
   comment "App User"
   shell "/bin/bash"
   password ""
+  not_if 'getent passwd ' + user
   action:create
 end
 
@@ -39,6 +40,12 @@ directory File.join(full_venv_path, '..') do
   mode directory_mode
   recursive true
   action :create
+end
+
+directory File.join(base_path, application_name) do
+  owner user
+  group group
+  mode directory_mode
 end
 
 # Create a virtual environment

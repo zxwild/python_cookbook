@@ -12,19 +12,33 @@ include_recipe "python"
 user = node[:user]
 group = node[:group]
 application_name = node[:application_name]
-base_path = node[:deploy][:base_path]
-venv_path = node[:deploy][:venv_path]
+base_path = node[:setup][:base_path]
+venv_path = node[:setup][:venv_path]
 directory_mode = node[:directory_mode]
 full_venv_path = File.join(base_path, application_name, venv_path)
 
+group group do
+  action :create
+end
+
+user user do
+  supports :manage_home => true
+  # uid user
+  gid group
+  home "/home/" + user
+  comment "App User"
+  shell "/bin/bash"
+  password ""
+  action:create
+end
 
 # Create directory tree
-directory File.join(base_path, application_name) do
+directory File.join(full_venv_path, '..') do
   owner user
   group group
   mode directory_mode
-  action :create
   recursive true
+  action :create
 end
 
 # Create a virtual environment
@@ -37,7 +51,7 @@ end
 
 # Install Django to a virtualenv
 python_pip "django" do
-   virtualenvfull_venv_path
+   virtualenv full_venv_path
    user user
    group group
    action :install

@@ -7,9 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe "python"
+# include_recipe "python"
 
-def virtualenv_setup
+define :virtualenv_setup do
     user = node[:user]
     group = node[:group]
     application_name = node[:application_name]

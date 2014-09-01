@@ -10,5 +10,13 @@
 Chef::Log.info('app_deploy recipe')
 
 # run virtualenv setup
-virtualenv_install do
+
+#virtualenv_install do
+#end
+
+node[:deploy].each do |application, deploy|
+  opsworks_deploy do
+      app application
+      deploy_data deploy
+  end
 end

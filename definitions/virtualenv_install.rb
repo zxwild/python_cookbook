@@ -7,38 +7,24 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#include_recipe "python"
 
 define :virtualenv_install do
     Chef::Log.info('virtualenv definition')
+    # "deploy::default" has created user/group and directory for upload_to
+    # at this moment, so we need to create path to the virtualenv and install it
+    
+    app = params[:application]
+    user = params[:user]
+    group = params[:group]
 
-    user = node[:user]
-    group = node[:group]
-    application_name = node[:application_name]
-    base_path = node[:setup][:base_path]
-    venv_path = node[:setup][:venv_path]
-    directory_mode = node[:directory_mode]
-    full_venv_path = File.join(base_path, application_name, venv_path)
-    base_path = node[:setup][:base_path]
-    pip_packages = node[:setup][:pip_packages]
+    deploy_to = params[:deploy_to]
+    venv_path = params[:venv_path]
+    full_venv_path = params[:full_venv_path]
 
-    group group do
-        action :create
-        not_if 'getent group ' + group
-    end
+    directory_mode = params[:directory_mode]
+    pip_packages = params[:pip_packages]
 
-    user user  do
-        supports :manage_home => true
-        gid group
-        home "/home/" + user
-        comment "App User"
-        shell "/bin/bash"
-        password ""
-        not_if 'getent passwd ' + user
-        action:create
-    end
-
-    # Create directory tree
+    # Create directory for the parent of virtualenv
     directory File.join(full_venv_path, '..') do
         owner user
         group group
@@ -47,11 +33,6 @@ define :virtualenv_install do
         action :create
     end
 
-    directory File.join(base_path, application_name) do
-        owner user
-        group group
-        mode directory_mode
-    end
 
     # Create a virtual environment
     python_virtualenv full_venv_path do

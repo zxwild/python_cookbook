@@ -9,6 +9,4 @@
 
 Chef::Log.info('default recipe')
 
-virtualenv_setup do
-end
-
+include_recipe 'python_cookbook::app_deploy'

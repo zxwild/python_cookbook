@@ -7,8 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-Chef::Log.info('default recipe')
+define :app_deploy do
+    Chef::Log.info('app_deploy definition')
 
-virtualenv_setup do
 end
-

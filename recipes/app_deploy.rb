@@ -7,7 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# include_recipe "python_cookbook::default"
+Chef::Log.info('app_deploy recipe')
 
-include_recipe "python"
-virtualenv_setup()
+# run virtualenv setup
+virtualenv_install do
+end

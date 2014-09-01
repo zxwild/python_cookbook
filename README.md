@@ -38,19 +38,21 @@ Custom JSON to configure (stack settings - Custom JSON):
 
 ```json
 {
-    "application_name": "app",
+    "application_name": "app01",
+    "user": "appuser",
+    "group": "appuser",
     "setup": {
-        "user": "ubuntu",
-        "group": "ubuntu",
         "directory_mode": "0755",
         "base_path": "/var/www",
-        "venv_path": "var/.env"
+        "venv_path": "var/.env",
+        "pip_packages": [
+            "Django==1.6.5",
+            "Pillow==2.4.0",
+            "South==0.8.4"
+        ]
     },
     "deploy": {
-        "requirements_path": "requirements.txt",
-        "requirements": [
-            "package_name==1.0"
-        ]
+        "requirements_path": "requirements.txt"
     }
 }
 ```

@@ -1,14 +1,14 @@
 #
 # Cookbook Name:: python_cookbook
-# Recipe:: default
+# Recipe:: virtualenv
 #
 # Copyright 2014, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
 #
 
-Chef::Log.info('default recipe')
+Chef::Log.info('virtualenv recipe')
 
-virtualenv_setup do
+# run virtualenv setup
+virtualenv_install do
 end
-

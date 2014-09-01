@@ -7,9 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# include_recipe "python"
+#include_recipe "python"
 
-define :virtualenv_setup do
+define :virtualenv_install do
+    Chef::Log.info('virtualenv definition')
+
     user = node[:user]
     group = node[:group]
     application_name = node[:application_name]

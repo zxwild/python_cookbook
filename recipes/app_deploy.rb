@@ -31,4 +31,32 @@ node[:deploy].each do |application, deploy|
 
         pip_packages deploy[:pip_packages]
     end
+    
+    
+    django_cfg = ::File.join(deploy[:deploy_to], 'current', Helpers.django_setting(deploy, 'settings_file', node))
+    Chef::Log.info('django_cfg: ' + django_cfg)
+
+    # Create local config settings
+    template django_cfg do
+        source Helpers.django_setting(deploy, 'settings_template', node) || "settings_local.py.erb"
+        owner deploy[:user]
+        group deploy[:group]
+        mode 0644
+
+        variables Hash.new
+        variables.update deploy
+
+        # return deploy["django_#{name}"] || node['deploy_django'][name]
+        Chef::Log.info('============ django_database ============')
+        Chef::Log.info(:django_database => Helpers.django_setting(deploy, 'database', node))
+        Chef::Log.info('=========================================')
+        
+        variables.update :django_database => Helpers.django_setting(deploy, 'database', node)
+
+        action :create
+    end
 end
+
+
+
+

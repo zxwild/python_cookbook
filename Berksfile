@@ -1,7 +1,6 @@
 source 'https://api.berkshelf.com'
 
 cookbook 'python', '1.4.6'
-cookbook 'python_cookbook', path: './python_cookbook'
 
 def opsworks_cookbook(name)
   cookbook name, { :github => "aws/opsworks-cookbooks", :rel => name, :tag => 'release-chef-11.10' }

@@ -38,21 +38,35 @@ Custom JSON to configure (stack settings - Custom JSON):
 
 ```json
 {
-    "application_name": "app01",
-    "user": "appuser",
-    "group": "appuser",
-    "setup": {
-        "directory_mode": "0755",
-        "base_path": "/var/www",
-        "venv_path": "var/.env",
-        "pip_packages": [
-            "Django==1.6.5",
-            "Pillow==2.4.0",
-            "South==0.8.4"
-        ]
-    },
     "deploy": {
-        "requirements_path": "requirements.txt"
+        "fshare": {
+            "user": "user_x",
+            "group": "group_x",
+            "deploy_to": "/var/www/fshare",
+            "directory_mode": "0755",
+            "venv_path": "var/.env",
+            "requirements": "requirements.txt",
+            "pip_packages": [
+                "Django==1.6.5",
+                "Pillow==2.4.0",
+                "South==0.8.4"
+            ],
+            "scm": {
+                "scm_type": "git",
+                "repository": "https://github.com/zxwild/fshare.git",
+                "revision": "master",
+                "user": "",
+                "password": ""
+            },
+            "django_database": {
+                "engine": "sqlite3",
+                "name": "unique_sqlite_name.sqlite3",
+                "user": "",
+                "password": "",
+                "host": "",
+                "port": ""
+            }
+        }
     }
 }
 ```
